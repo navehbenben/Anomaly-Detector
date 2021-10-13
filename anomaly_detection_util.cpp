@@ -50,5 +50,10 @@ float avarege(float*x,int size){
 
 // performs a linear regression and return s the line equation
 Line linear_reg(Point** points, int size){
+    for (size_t i = 0; i < count; i++)
+    {
+        /* code */
+    }
+    
     
 }

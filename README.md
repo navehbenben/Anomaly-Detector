@@ -2,7 +2,6 @@
 this is ex2 of the first milestone in advanced programming. the main process is:
 we have a timeseries object -the data, an simpleanomalydetector object uses the method learnNormal on that data and saves the correlated features. 
 the simpleanomalydetector object get another data in the detect method and look for anomalies, and export an anomaly report.
-ובעברית: יש לנו אובייקט "סדרת זמן" שמכיל דאטא לאימון. אובייקט גלאי חריגות מקבל את "סדרת זמן", משתמש במתודה "ללמוד על הנורמה" ומגלה קורולציות בין שתי עמודות. גלאי החריגות מקבל שורה נוספת ומנסה למצוא בה חריגות לעומת הקורולציות שהבין שיש בדאטא ומייצר דו"ח של החריגות במידע החדש.
 
 ## MainTrain.cpp
 a basic test for the whole assignment. it should have more extremistic inputs.

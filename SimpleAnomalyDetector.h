@@ -14,6 +14,7 @@ Gilad Aharoni
 #include <algorithm>
 #include <string.h>
 #include <math.h>
+#include "minCircle.h"
 
 
 struct correlatedFeatures{
@@ -21,15 +22,18 @@ struct correlatedFeatures{
 	float corrlation;
 	Line lin_reg;
 	float threshold;
+	Circle* mincircle;
 	correlatedFeatures(string feature1, string feature2, const TimeSeries& ts);
 };
 
 
 class SimpleAnomalyDetector:public TimeSeriesAnomalyDetector{
+protected:	
 	//set of correlated features
 	vector<correlatedFeatures> cf;
 public:
 	SimpleAnomalyDetector();
+	SimpleAnomalyDetector(vector<correlatedFeatures> cf1): cf(cf1){};
 	virtual ~SimpleAnomalyDetector();
 
 	//create cf by timeseries

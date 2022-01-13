@@ -7,6 +7,8 @@ Gilad Aharoni
 #include "SimpleAnomalyDetector.h"
 #include <vector>
 #include <string.h>
+#include "HybridAnomalyDetector.h"
+#include "minCircle.h"
 
 
 //constructor for the correlated features
@@ -14,6 +16,7 @@ correlatedFeatures::correlatedFeatures(string feature1, string feature2, const T
 {
 	this->feature1 = feature1;
 	this->feature2 = feature2;
+	mincircle = new Circle(Point(0.0,0.0),0);
 	float pears = abs(pearson( &ts.getColumnByTitle(feature1)[0], &ts.getColumnByTitle(feature2)[0],ts.getLinesNumber()));
 	this->corrlation = pears;
 	Point** points = ts.getTwoColumns(feature1, feature2);
@@ -63,7 +66,7 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries &ts)
 				}
 			}
 		}
-		if (maxPearson >= 0.8)
+		if (maxPearson >= 0.5)
 		{
 			//add it to the corrolations vector.
 			correlatedFeatures cor = correlatedFeatures(*title1, correlated, ts);
@@ -82,6 +85,7 @@ vector<AnomalyReport> SimpleAnomalyDetector::detect(const TimeSeries &ts)
 		//pick every couple of corrations.
 		for (auto correlated: cf)
 		{
+			if(isCircleDefult(correlated)){
 			string featureA = correlated.feature1, featureB = correlated.feature2;
 			//the condition check if the values of the two columns corrolated as in the original data.
             float y_expected = correlated.lin_reg.f(ts.getByKeyLine(featureA,i));
@@ -91,6 +95,7 @@ vector<AnomalyReport> SimpleAnomalyDetector::detect(const TimeSeries &ts)
 				string descrip = featureA + "-" + featureB;
 				AnomalyReport* report = new AnomalyReport(descrip, i+1);
 				reports.push_back(*report);
+			}
 			}
 		}
 	}

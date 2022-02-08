@@ -3,6 +3,7 @@
 #include <vector>
 #include <set>
 
+
 Circle one_point(Point center){
     return Circle(center, (float)0);
 }
